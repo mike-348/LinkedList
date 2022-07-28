@@ -1,5 +1,6 @@
 package com.zipcodewilmington.singlylinkedlist;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by leon on 1/10/18.
  */
 
-public class SinglyLinkedList<E> {
+public class SinglyLinkedList<E extends Comparable<E>> {
     List<String> linkedlist = new LinkedList<String>();
 
     class Node<E> {
@@ -23,7 +24,7 @@ public class SinglyLinkedList<E> {
     public Node head = null;
     public Node tail = null;
 
-    public void addNode(E data) {
+    public void add(E data) {
         Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
@@ -32,19 +33,6 @@ public class SinglyLinkedList<E> {
             tail.next = newNode;
             tail = newNode;
         }
-    }
-
-    public Integer getIndex(E data) {
-        int index = 0;
-        Node current = head;
-        while (current != head) {
-            if (current.data == data) {
-                return index;
-            }
-            index++;
-            current = current.next;
-        }
-        return -1;
     }
 
     public Integer size() {
@@ -57,109 +45,69 @@ public class SinglyLinkedList<E> {
         return count;
     }
 
-    public boolean contains(E data) {
-        return getIndex(data) != -1;
+    public Integer find(E data) {
+        int index = 0;
+        Node current = head;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                return index;
+            }
+            index++;
+            current = current.next;
+        }
+        return -1;
     }
 
+    public void remove(E data) {
+        Node current = head;
+        Node last = head;
 
+        while (current != null) {
+            if (current.data == data) {
+                last.next = current.next;
+            }
+            last = current;
+            current = current.next;
+        }
+    }
 
-//    public void removeNode(int index) {
-//        Node current = head;
-//        Node prev = null;
-//        int i = 0;
-//
-//        if (current != null && index == 0) {
-//            head = current.next;
-//        }
-//
-//        while (current != null && index != i) {
-//            prev = current;
-//            current = current.next;
-//            i++;
-//        }
-//
-//        prev.next = current.next;
-//
-//    }
-//
-//    public E unlink(Node<E> x) {
-//        // assert x != null;
-//        Node<E> first;
-//        Node<E> last;
-//        int size = 0;
-//        int modCount = 0;
-//
-//        E element = x.item;
-//        Node<E> next = x.next;
-//        Node<E> prev = x.prev;
-//
-//        if (prev == null) {
-//            first = next;
-//        } else {
-//            prev.next = next;
-//            x.prev = null;
-//        }
-//
-//        if (next == null) {
-//            last = prev;
-//        } else {
-//            next.prev = prev;
-//            x.next = null;
-//        }
-//
-//        x.item = null;
-//        size--;
-//        modCount++;
-//        return element;
-//    }
-//
-//    Node<E> getNodeAtIndex(int index) {
-//        Node first = head;
-//        Node last = tail;
-//        int size = 0;
-//
-//        if (index < (size >> 1)) {
-//            Node<E> x = first;
-//            for (int i = 0; i < index; i++)
-//                x = x.next;
-//            return x;
-//        } else {
-//            Node<E> x = last;
-//            for (int i = size - 1; i > index; i--)
-//                x = x.prev;
-//            return x;
-//        }
-//    }
-//    public E removeAtIndex(int index) {
-//        return unlink(getNodeAtIndex(index));
-//    }
-//
-//    public int getIndexOfNode(Object o) {
-//        Node first = head;
-//        int index = 0;
-//        if (o == null) {
-//            for (Node<E> x = first; x != null; x = x.next) {
-//                if (x.item == null)
-//                    return index;
-//                index++;
-//            }
-//        } else {
-//            for (Node<E> x = first; x != null; x = x.next) {
-//                if (o.equals(x.item))
-//                    return index;
-//                index++;
-//            }
-//        }
-//        return -1;
-//    }
-//
-//    public boolean contains(Object o) {
-//        return getIndexOfNode(o) != -1;
-//    }
-//
-//    public int size() {
-//        int count = 0;
-//
-//    }
+    public boolean contains(E data) {
+        return find(data) != -1;
+    }
+
+    public E getElementAtIndex(Integer index) {
+        Integer runningIndex = 0;
+        Node current = head;
+        if (index > size()) {
+            return null;
+        }
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return (E) current.data;
+    }
+
+    public void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.println(current.data + "");
+            current = current.next;
+        }
+    }
+
+    public SinglyLinkedList<E> copy() {
+        SinglyLinkedList sl = new SinglyLinkedList();
+        Node current = head;
+        while (current != null) {
+            sl.add((E)current.data);
+            current = current.next;
+        }
+        return sl;
+    }
+
+    public void sort() {
+        Node current = head;
+
+    }
 
 }
