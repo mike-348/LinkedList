@@ -105,9 +105,40 @@ public class SinglyLinkedList<E extends Comparable<E>> {
         return sl;
     }
 
-    public void sort() {
+    public SinglyLinkedList<E> sort() {
         Node current = head;
+        Node next = null;
+        E temp;
+
+        //bubble sort
+        while (current != null) {
+            next = current.next;
+
+            while (next != null) {
+                if (compareTo((E)current.data, (E)next.data) > 0) {
+                    temp = (E)current.data;
+                    current.data = next.data;
+                    next.data = temp;
+                }
+                next = next.next;
+            }
+            current = current.next;
+        }
+
+        SinglyLinkedList<E> sortedList = new SinglyLinkedList<E>();
+        Node newCurrent = head;
+        while (newCurrent != null) {
+            sortedList.add((E) newCurrent.data);
+            newCurrent = newCurrent.next;
+        }
+        return sortedList;
 
     }
+
+    public int compareTo(E data, E data1) {
+        return data.compareTo(data1);
+    }
+
+
 
 }

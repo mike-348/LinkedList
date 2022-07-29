@@ -84,5 +84,15 @@ public class SinglyLinkedListTest {
         }
     }
 
+    @Test
+    public void sortTest() {
+        SinglyLinkedList sl = new SinglyLinkedList();
+        sl.add(2);
+        sl.add(10);
+        sl.add(8);
+        sl.add(6);
+
+        sl.sort().display();
+    }
 
 }
