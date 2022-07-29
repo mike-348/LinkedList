@@ -92,7 +92,69 @@ public class SinglyLinkedListTest {
         sl.add(8);
         sl.add(6);
 
+        sl.sort();
+
+        Assert.assertEquals(0, (int)sl.find(2));
+        Assert.assertEquals(1, (int)sl.find(6));
+        Assert.assertEquals(2, (int)sl.find(8));
+        Assert.assertEquals(3, (int)sl.find(10));
+    }
+
+    @Test
+    public void sortAlphaTest() {
+        SinglyLinkedList sl = new SinglyLinkedList();
+        sl.add("peach");
+        sl.add("dragonfruit");
+        sl.add("apple");
+
         sl.sort().display();
+        Assert.assertEquals(0, (int)sl.find("apple"));
+        Assert.assertEquals(1, (int)sl.find("dragonfruit"));
+        Assert.assertEquals(2, (int)sl.find("peach"));
+    }
+
+    @Test
+    public void reverseTest() {
+        SinglyLinkedList sl = new SinglyLinkedList();
+        sl.add(2);
+        sl.add(4);
+        sl.add(6);
+        sl.add(8);
+
+        sl.reverse().display();
+
+        Assert.assertEquals(0, (int)sl.find(8));
+        Assert.assertEquals(1, (int)sl.find(6));
+        Assert.assertEquals(2, (int)sl.find(4));
+        Assert.assertEquals(3, (int)sl.find(2));
+    }
+
+    @Test
+    public void reverseAlphaTest() {
+        SinglyLinkedList sl = new SinglyLinkedList();
+        sl.add("peach");
+        sl.add("dragonfruit");
+        sl.add("apple");
+
+        sl.reverse().display();
+
+        Assert.assertEquals(0, (int)sl.find("apple"));
+        Assert.assertEquals(1, (int)sl.find("dragonfruit"));
+        Assert.assertEquals(2, (int)sl.find("peach"));
+    }
+
+    @Test
+    public void spliceTest() {
+        SinglyLinkedList sl = new SinglyLinkedList();
+        sl.add(2);
+        sl.add(4);
+        sl.add(6);
+        sl.add(8);
+
+        SinglyLinkedList sl1 = sl.splice(1, 3);
+
+        Assert.assertEquals(0, (int)sl1.find(4));
+        Assert.assertEquals(1, (int)sl1.find(6));
     }
 
 }

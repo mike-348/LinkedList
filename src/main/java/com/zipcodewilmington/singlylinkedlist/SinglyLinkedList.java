@@ -1,6 +1,7 @@
 package com.zipcodewilmington.singlylinkedlist;
 
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -140,5 +141,38 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     }
 
 
+    /*
+    1. Traverse the list from head to tail, keeping track of the current node and the previous node.
+    2. For each node, set the next pointer to point to the previous node.
+    3. Set the head pointer to point to the last node in the list (which is now the first node).
+     */
+    public SinglyLinkedList<E> reverse() {
+        Node current = head;
+        Node prev = null;
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
 
+        SinglyLinkedList<E> reversedList = new SinglyLinkedList<E>();
+        Node newCurrent = head;
+        while (newCurrent != null) {
+            reversedList.add((E) newCurrent.data);
+            newCurrent = newCurrent.next;
+        }
+        return reversedList;
+    }
+
+    public SinglyLinkedList<E> splice(int startIndex, int endIndex) {
+        Node current = head;
+        SinglyLinkedList<E> splicedList = new SinglyLinkedList<E>();
+        for (int i = startIndex; i < endIndex; i++) {
+            current = current.next;
+            splicedList.add((E)current.data);
+        }
+        return splicedList;
+    }
 }
